@@ -137,21 +137,51 @@ class GrafoNoDirigido:
             print(fila)
 
 if __name__=='__main__':
-    grafo=GrafoNoDirigido(7)
+    grafo=GrafoNoDirigido(6)
     grafo.arista(0,1,3)
-    grafo.arista(0,3,3)
+    grafo.arista(0,3,6)
     grafo.arista(1,2,1)
+    grafo.arista(1,5,1)
     grafo.arista(1,4,2)
     grafo.arista(2,3,2)
-    grafo.arista(2,4,3)
-    grafo.arista(2,5,2)
-    grafo.arista(3,6,3)
-    grafo.arista(3,5,1)
-    grafo.arista(4,5,3)
-    grafo.arista(5,6,2)
+    grafo.arista(3,1,3)
+    grafo.arista(4,3,3)
+    grafo.arista(4,5,2)
+    grafo.arista(5,0,5)
+    grafo.arista(5,3,1)
     grafo.mostrar()
     print("Adyacente:")
     grafo.adyacente(0)
+    print("--------ej3------")
+    nombre=(input("Ingrese nombre persona: "))
+    if nombre=='ana':
+        aux=0
+    elif nombre=='belen':
+        aux=1
+    elif nombre=='cecilia':
+        aux=2
+    elif nombre=='daniel':
+        aux=3
+    elif nombre=='ezequiel':
+        aux=4
+    elif nombre=='federico':
+        aux=5
+    print(f"aux: {aux}")
+    distancia, camino = grafo.dijkstra(aux)
+    nombres=[]
+    nombres.append('ana')
+    nombres.append('belen')
+    nombres.append('cecilia')
+    nombres.append('daniel')
+    nombres.append('ezequiel')
+    nombres.append('federico')
+    print(nombres)
+    for i in range(len(nombres)):
+        print(f"Para mandarle sms a {nombres[i]} gasta {distancia[i]} centavos")
+        
+    
+    print(f"Distancia(pesos) desde el nodo 0: {distancia}")
+    print(f"Caminos para cada nodo: {camino}")
     
     print("--------GradoEnt------")
     entrada=int(input("Ingrese numero nodo para ver gradoentrada: "))
@@ -174,7 +204,3 @@ if __name__=='__main__':
     d, f = grafo.bep()
     print(f"Arreglo d: {d}")
     print(f"Arreglo f:, {f}")
-
-
-    
-
