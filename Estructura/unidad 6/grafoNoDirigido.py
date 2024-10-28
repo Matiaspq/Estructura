@@ -24,15 +24,16 @@ class GrafoNoDirigido:
         return adyacente
 
     def conexo(self):
-        j=0
-        for i in range(len(self.matriz)):
-            print(f"i{i}")
-            aux=self.bea(i)
-            while aux[j-1]!=999 and j<len(aux):
-                print(f"aux:{aux[j]}")
-                print(f"j{j}")
-                j+=1
-
+        aux=self.bea(0)
+        band=True
+        j=0 
+        while j<len(aux) and band==True:
+            if aux[j] == 999:
+                band=False
+            print(f"aux:{aux[j]}")
+            print(f"j{j}")
+            j+=1
+        return band
 
 
     def bea(self, origen):
@@ -48,6 +49,7 @@ class GrafoNoDirigido:
                 if d[i]==999:
                     d[i] = d[eliminado]+1
                     cola.insertar(i)
+        print(d)
         return d
 
 
@@ -57,6 +59,7 @@ class GrafoNoDirigido:
 
 if __name__=='__main__':
     grafo=GrafoNoDirigido(5)
+    #grafo.arista(0,1)
     grafo.arista(1,2)
     grafo.arista(3,2)
     grafo.arista(4,3)
@@ -64,7 +67,7 @@ if __name__=='__main__':
     grafo.adyacente(0)
     grafo.bea(1)
     print("--------------")
-    grafo.conexo()
+    print(grafo.conexo())
 
 
     
