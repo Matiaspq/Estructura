@@ -38,7 +38,7 @@ class GrafoNoDirigido:
 
     def bea(self, origen):
         cola=Cola(50)
-        d = [999]*len(self.matriz)
+        d = [999]*5
         print(d)
         d[origen] = 0
         cola.insertar(origen)
@@ -51,15 +51,7 @@ class GrafoNoDirigido:
                     cola.insertar(i)
         print(d)
         return d
-    
-    def camino(self, origen, destino):
-        aux=self.bea(origen)
-        if aux[destino] == 999:
-            return False
-        return True
-        
-        
-        
+
 
     def mostrar(self):
         for fila in self.matriz:
@@ -67,7 +59,7 @@ class GrafoNoDirigido:
 
 if __name__=='__main__':
     grafo=GrafoNoDirigido(5)
-    grafo.arista(0,1)
+    #grafo.arista(0,1)
     grafo.arista(1,2)
     grafo.arista(3,2)
     grafo.arista(4,3)
@@ -76,16 +68,7 @@ if __name__=='__main__':
     grafo.bea(1)
     print("--------------")
     print(grafo.conexo())
-    print("--------b parcial recu camino------")
-    origen=int(input("ingrese nodo origen: "))
-    destino=int(input("ingrese nodo destino: "))
-    if grafo.camino(origen, destino):
-        print(f"Si existe camino entre: {origen, destino}")
-    else:
-        print(f"No existe camino entre: {origen, destino}")
-    grafo.camino(origen, destino)
-    
-    
+
 
     
 

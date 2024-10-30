@@ -1,5 +1,5 @@
 import random
-
+#bien
 class TablaHash():
     def __init__(self, tamaño):
         self.tamaño = tamaño
@@ -27,7 +27,7 @@ class TablaHash():
             i = (i + 1) % self.tamaño
         return contador
     
-    def mostrar(self):
+    def mostrar(self): #no pertenece a la estructura
         for i in self.tabla:
             print(i)
         

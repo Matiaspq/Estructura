@@ -1,54 +1,67 @@
-import random
+class Nodo:
+    def __init__(self, dato=None):
+        self.dato = dato
+        self.siguiente = None  
+        
+class HashingEncadenado:
+    def __init__(self, tamanio):
+        self.arreglo = [None] * tamanio
+        self.tamanio = tamanio
+        self.arregloCont = [0] * tamanio
+        
+    def hashingDivision(self, clave):
+        return int(clave) % self.tamanio
 
-class Celda:
-    def __init__(self, item=0, sig=None):
-        self.item = item 
-        self.sig = sig
+    def hashingPlegado(self, clave):
+        strclave = str(clave)
+        xlon = len(strclave)
+        if xlon != 1:
+            xcant = xlon // 2  # Se divide la longitud de la clave
+            xclave = int(strclave[0:xcant]) + int(strclave[xcant:])  # Sumar las mitades
+            return self.hashingDivision(xclave)  # Asegurar que la posición esté dentro de la tabla
+        else:
+            return self.hashingDivision(clave)
+        
+    def insertar(self, clave):
+        indice = self.hashingPlegado(clave)
+        nodo = Nodo(clave)
+        if self.arreglo[indice] is None:
+            self.arreglo[indice] = nodo
+            print("Elemento ingresado en la posición:", indice, "con dato:", self.arreglo[indice].dato)
+        else:
+            nodo.siguiente = self.arreglo[indice]
+            self.arreglo[indice] = nodo 
+            self.arregloCont[indice] += 1
+            print("Elemento ingresado en la posición:", indice, "con dato:", self.arreglo[indice].dato)
+        
+    def buscar(self, clave):
+        indice = self.hashingPlegado(clave)
+        nodo_actual = self.arreglo[indice]
+        while nodo_actual is not None:
+            if nodo_actual.dato == clave:
+                print(f"El dato {clave} fue encontrado")
+                return True
+            nodo_actual = nodo_actual.siguiente
+        print(f"El dato {clave} no fue encontrado")
+        return False
     
+    def mostrar(self): #no pertenece a estructura
+        for i in range(self.tamanio):
+            print(f"Índice {i}: ", end="")
+            nodo_actual = self.arreglo[i]
+            if nodo_actual is None:
+                print("None")
+            else:
+                while nodo_actual is not None:
+                    print(nodo_actual.dato, end=" -> ")
+                    nodo_actual = nodo_actual.siguiente
+                print("None")  # Para indicar el final de la lista enlazada
 
-class Pila:
-    def __init__(self, xtope=None):
-        self.tope = xtope
-
-    def insertar(self, x):
-        nuevo = Celda(x, self.tope)
-        self.tope = nuevo
-
-    def recorrer(self):
-        aux = self.tope
-        while aux!=None:
-            print(aux.item)
-            aux = aux.sig
-
-
-class TablaHashEncadenado:
-    def __init__(self, tamaño):
-        self.tamaño=tamaño
-        self.tabla=[Pila() for _ in range(tamaño)]
-
-    def hashDivision(self, clave):
-        return clave % self.tamaño
-
-    def insertar(self, valor):
-        i = self.hashDivision(valor)
-        print(f"Indice: {i}")
-        self.tabla[i].insertar(valor)
-
-    def mostrar(self): #No pertenece a estructura
-        for i in range(11):
-            print(f"mostrar Indice {i}")
-            print(self.tabla[i].recorrer())
-       
-
-    
-if __name__=='__main__':
-    tabla=TablaHashEncadenado(11)
-    numeros=[]
-    for i in range(10):
-        aleatorio=random.randint(0,1000)
-        numeros.append(aleatorio)
-    print(numeros)
-    for i in numeros:
-        tabla.insertar(i)
-    tabla.mostrar()
-
+# Ejemplo de uso
+hash_table = HashingEncadenado(10)
+hash_table.insertar(123)
+hash_table.insertar(234)
+hash_table.insertar(123)  # Colisión
+hash_table.mostrar()
+hash_table.buscar(123)
+hash_table.buscar(999)     # No encontrado

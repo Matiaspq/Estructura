@@ -15,7 +15,7 @@ class GrafoNoDirigido:
     def arista(self, i, j, peso):
         # No dirigido, se conecta en ambos sentidos
         self.matriz[i][j] = peso
-        #self.matriz[j][i] = peso es dirigido
+        self.matriz[j][i] = peso
 
     def adyacente(self, origen):
         adyacente=[]
@@ -110,26 +110,8 @@ class GrafoNoDirigido:
                         camino[w] = v
         return distancia, camino
 
-    def gradSal(self, origen):
-        cont=0
-        for j in range(len(self.matriz)):
-            if self.matriz[origen][j] != 0:
-                cont+=1
-        return cont
-    
-    def gradEnt(self, origen):
-        cont=0
-        for i in range(len(self.matriz)):
-            if self.matriz[i][origen] != 0:
-                cont+=1
-        return cont
 
-    def nodoFuente(self, origen):
-        if self.gradSal(origen)>0:
-            if self.gradEnt(origen)==0:
-                return True
-        return False
-            
+
 
 
     def mostrar(self):
@@ -152,17 +134,6 @@ if __name__=='__main__':
     grafo.mostrar()
     print("Adyacente:")
     grafo.adyacente(0)
-    
-    print("--------GradoEnt------")
-    entrada=int(input("Ingrese numero nodo para ver gradoentrada: "))
-    print(grafo.gradEnt(entrada))
-    salida=int(input("Ingrese numero nodo para ver gradosalida: "))
-    print(grafo.gradSal(salida))
-    fuente=int(input("Ingrese numero nodo para ver si es fuente: "))
-    print(grafo.nodoFuente(fuente))
-    sumidero=int(input("Ingrese numero nodo para ver si es sumidero: "))
-    resultado=grafo.nodoFuente(sumidero)
-    print(not resultado)
     print("--------------")
     grafo.bea(1)
     print("--------------")
